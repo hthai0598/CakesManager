@@ -1,0 +1,8 @@
+E:\Project\cakesManager\Persistence\obj\Debug\netstandard2.0\Persistence.csproj.CoreCompileInputs.cache
+E:\Project\cakesManager\Persistence\obj\Debug\netstandard2.0\Persistence.AssemblyInfoInputs.cache
+E:\Project\cakesManager\Persistence\obj\Debug\netstandard2.0\Persistence.AssemblyInfo.cs
+E:\Project\cakesManager\Persistence\bin\Debug\netstandard2.0\Persistence.deps.json
+E:\Project\cakesManager\Persistence\bin\Debug\netstandard2.0\Persistence.dll
+E:\Project\cakesManager\Persistence\bin\Debug\netstandard2.0\Persistence.pdb
+E:\Project\cakesManager\Persistence\obj\Debug\netstandard2.0\Persistence.dll
+E:\Project\cakesManager\Persistence\obj\Debug\netstandard2.0\Persistence.pdb

@@ -183,11 +183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\project\\cakesManager\\Persistence\\Persistence.csproj",
+      "projectUniqueName": "E:\\Project\\cakesManager\\Persistence\\Persistence.csproj",
       "projectName": "Persistence",
-      "projectPath": "E:\\project\\cakesManager\\Persistence\\Persistence.csproj",
+      "projectPath": "E:\\Project\\cakesManager\\Persistence\\Persistence.csproj",
       "packagesPath": "C:\\Users\\MXP\\.nuget\\packages\\",
-      "outputPath": "E:\\project\\cakesManager\\Persistence\\obj\\",
+      "outputPath": "E:\\Project\\cakesManager\\Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

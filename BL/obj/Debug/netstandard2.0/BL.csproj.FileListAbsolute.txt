@@ -1,0 +1,14 @@
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\ConnectionString.txt
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\BL.deps.json
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\BL.dll
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\BL.pdb
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\DAL.dll
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\Persistence.dll
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\DAL.pdb
+E:\Project\cakesManager\BL\bin\Debug\netstandard2.0\Persistence.pdb
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.csprojResolveAssemblyReference.cache
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.csproj.CoreCompileInputs.cache
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.AssemblyInfoInputs.cache
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.AssemblyInfo.cs
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.dll
+E:\Project\cakesManager\BL\obj\Debug\netstandard2.0\BL.pdb
