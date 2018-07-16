@@ -217,9 +217,9 @@ namespace Console
                             System.Console.WriteLine(e.Message);
                             continue;
                         }
-                        catch{
-                            continue;
-                        }
+                        // catch{
+                        //     continue;
+                        // }
                         break;
                     }
                     
@@ -253,11 +253,11 @@ namespace Console
                                 System.Console.Write(e.Message);
                                 continue;
                             }
-                            catch
-                            {
-                                System.Console.Write("Hãy Nhập :");
-                                continue;
-                            }
+                            // catch
+                            // {
+                            //     System.Console.Write("Hãy Nhập :");
+                            //     continue;
+                            // }
                             break;
                         }
                         System.Console.Write("Bạn Muốn Mua Thêm  ?(y/n) ");

@@ -72,7 +72,10 @@ create table Invoice
     InvoiceStatus int,
     constraint fk_Invoice_Staff foreign key (StaffID) references Staff(StaffID)
 );
-select LAST_INSERT_ID() as Invoice;
+
+insert into Invoice(StaffID,InvoiceStatus) value ('S111',2);
+select * from Invoice; 
+
 create table InvoiceDetails
 (
 	ItemID char(40),
@@ -83,6 +86,6 @@ create table InvoiceDetails
     constraint fk_InvoiceDetails_Item foreign key (ItemID) references Item(ItemID),
     constraint fk_InvoiceDetails_Invoice foreign key (InvoiceID) references Invoice(InvoiceID)
 );
+insert into invoicedetails(ItemID,InvoiceID,Amount,InvoiceStatus,UnitPrice) value ('GT1',8,4,2,20);
 
-
-select staff.StaffID,staff.StaffName,invoice.InvoiceDate,item.ItemName,item.ItemID,item.ItemType,item.Size,item.Promotion,invoicedetails.Amount,invoicedetails.UnitPrice,invoice.InvoiceStatus from staff inner join invoice on staff.StaffID = invoice.InvoiceID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join  item on item.ItemID = invoicedetails.InvoiceID;
+select staff.StaffID,staff.StaffName, invoice.InvoiceID,invoicedetails.Amount,invoicedetails.UnitPrice,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID where invoice.InvoiceID = 8;

@@ -32,7 +32,7 @@ namespace DAL
             return item;
            
         }
-        private Item GetItem(MySqlDataReader reader)
+        public Item GetItem(MySqlDataReader reader)
         {
             Item item = new Item();
             item.itemID = reader.GetString("ItemID");
