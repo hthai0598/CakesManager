@@ -179,7 +179,7 @@ namespace Console
             invoice = new Invoice();
             itembl = new ItemBL();
             item = new Item();
-            invoice.itemList = new List<Item>();
+            invoice.ItemList = new List<Item>();
             int count1 = 0;
             invoice.Invoice_Status = 1;
             invoice.staff = new Staff();
@@ -201,7 +201,7 @@ namespace Console
                             {
                                 if(item_id == result[i].itemID)
                                 {
-                                    invoice.itemList.Add(itembl.GetItemById(item_id));
+                                    invoice.ItemList.Add(itembl.GetItemById(item_id));
                                     index = i;
                                     count++;
                                 }
@@ -243,7 +243,7 @@ namespace Console
                                     }
                                     else if( 0 < amount || amount <= result[index].amount)
                                     {
-                                        invoice.itemList[count1].amount = amount;
+                                        invoice.ItemList[count1].amount = amount;
                                         count1++;
                                         break;
                                     }

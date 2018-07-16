@@ -19,20 +19,20 @@ namespace DAL.Test
 
         
             
-        // [Fact]
-        // public void Test_Create_Invoice()
-        // {    
-        //     Invoice invo = new Invoice();
-        //     invo.staff = new Staff();
-        //     invo.staff.StaffID = "S111";
-        //     invo.Invoice_Status = 1;
-        //     invo.itemList = new List<Item>();
-        //     Item it = new Item();
-        //     it.itemID = "GT1";
-        //     it.amount = 1;
-        //     invo.itemList.Add(it);
-        //     Assert.True(i.Create_Invoice(invo)); 
-        // }
+        [Fact]
+        public void Test_Create_Invoice()
+        {    
+            Invoice invo = new Invoice();
+            invo.staff = new Staff();
+            invo.staff.StaffID = "S111";
+            invo.Invoice_Status = 1;
+            invo.ItemList = new List<Item>();
+            Item it = new Item();
+            it.itemID = "GT1";
+            it.amount = 1;
+            invo.ItemList.Add(it);
+            Assert.False(i.Create_Invoice(invo)); 
+        }
        
         // [Fact]
         // public void TestGetInvoiceDetails()
