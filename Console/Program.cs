@@ -10,6 +10,7 @@ namespace Console
 {
     public class Program
     {
+        static int amount;
         static Staff staff;
         static StaffBL staffbl;
         static Item item;
@@ -167,9 +168,15 @@ namespace Console
                 System.Console.WriteLine("{0,-15}{1,-25}{2,-15}{3,-15}{4,-15}{5,-15}{6,-15}", item.itemID, item.itemName, item.itemType, item.amount, item.unitPrice, item.size, item.Promotion);
 
             };
-            System.Console.WriteLine("Nhấn Phím Bất Kì Để Bắt Đầu Mua:   ");
-            System.Console.ReadKey();
-            CreateOrders();
+            System.Console.WriteLine("Tạo Hóa Đơn Ngay Y/N");
+            char ch = Convert.ToChar(System.Console.ReadLine());
+            switch (ch)
+            {
+                case 'y': CreateOrders();
+                break;
+                case 'n': MenuStaff();
+                break;
+            }
         }
         
         public static  bool CreateOrders()
@@ -181,7 +188,6 @@ namespace Console
             item = new Item();
             invoice.ItemList = new List<Item>();
             int count1 = 0;
-            invoice.Invoice_Status = 1;
             invoice.staff = new Staff();
             invoice.staff.StaffID = u;
             List<Item> result= itembl.GetAllItem();
@@ -228,7 +234,7 @@ namespace Console
                             try
                             {
                                     System.Console.Write("Nhập Vào Số Lượng: ");
-                                    int amount = Convert.ToInt32(System.Console.ReadLine());
+                                     amount = Convert.ToInt32(System.Console.ReadLine());
                                     if((amount >result[index].amount && result[index].amount == 0) || (amount == result[index].amount && result[index].amount == 0) )
                                     {
                                         System.Console.WriteLine("Số Lượng Sản Phẩm Không Còn!");
@@ -239,7 +245,7 @@ namespace Console
                                     if( amount > result[index].amount && result[index].amount >0 )
                                     {
                                         System.Console.WriteLine("Số Lượng Còn : {0}",result[index].amount);
-                                        throw (new System.Exception("Không Đủ, Nhập Lại: "));
+                                        throw (new System.Exception("Mời Khách Hàng Giảm Số Lượng Hoặc Chọn Sản Phẩm Khác !"));
                                     }
                                     else if( 0 < amount || amount <= result[index].amount)
                                     {
@@ -268,8 +274,9 @@ namespace Console
                         }
                 
                     }
-                System.Console.WriteLine("Create Order: " + (invoicebl.Create_Invoice(invoice) ? "Thành Công!" : "không Thành Công!"));
-                System.Console.Write("  Nhấn Phím Bất Kì Để Xuất Hóa Đơn !");
+                System.Console.WriteLine("Tạo Hóa Đơn " + (invoicebl.Create_Invoice(invoice) ? "Thành Công!" : "Không Thành Công!"));
+                System.Console.WriteLine("Nhập Bất Kì Để Xuất Hóa Đơn Chó Khách Hàng ");
+                GetInvoiceDetails();
                 System.Console.ReadLine();
                 
             }
@@ -282,6 +289,32 @@ namespace Console
             }
             return true;
             
+        }
+        
+        public static void GetInvoiceDetails()
+        {
+            string row1 = "==================================================================================================================";
+            string row2 = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
+            System.Console.WriteLine(row1);
+            System.Console.WriteLine(row2);
+             staffbl = new StaffBL();
+            staff = staffbl.Login(u, pass);
+            System.Console.WriteLine("CỬA HÀNG BÁNH NGỌT ABC");
+            System.Console.WriteLine("12 Phố Huế ---- Hai Bà Trưng ---- Hà Nội");
+            System.Console.WriteLine("Hóa Đơn Thanh Toán");
+            System.Console.WriteLine("Nhân Viên :"+ staff.StaffID + "Ca Làm Việc : "+staff.calamviec);
+            System.Console.WriteLine("Mã Sản Phẩm  ||Tên Sản Phẩm     || Size      ||  Khuyến Mãi    || Số Lượng     ||Total");
+            var invoicedetails = invoicebl.GetInvoiceDetails();
+            // System.Console.Write("{0}","Mã Hóa Đơn: "+invoicedetails.invoiceID );
+            // System.Console.WriteLine("{0}","Ngày: "+invoicedetails.invoiceDate );
+
+            foreach (var item in invoicedetails.ItemList)
+            {
+                decimal total = item.unitPrice * amount;
+                System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}",item.itemID,item.itemName,item.size,item.Promotion,item.amount,total);
+            }
+
+
         }
 
 

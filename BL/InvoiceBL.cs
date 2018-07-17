@@ -7,12 +7,13 @@ namespace BL
 {
     public class InvoiceBL
     {
+         
          InvoiceDAL inv = new InvoiceDAL();
         public bool Create_Invoice(Invoice invoice)
         {
-            InvoiceDAL inv = new InvoiceDAL();
-            bool result = inv.Create_Invoice(invoice);
-            return result;
+            
+            return inv.Create_Invoice(invoice);
+            
         }
         public Invoice GetInvoiceDetailsByID(int id)
         {
@@ -22,19 +23,15 @@ namespace BL
         {
             return inv.GetInvoices(1,new Invoice{staff = new Staff{StaffID = id }});
         }
-        public List<Invoice> GetInvoiceByStatus(int status)
+        public Invoice GetInvoiceDetails()
         {
-            return inv.GetInvoices(2,new Invoice{Invoice_Status = status});
+            return inv.GetInvoiceDetails();
         }
+        
         public List<Invoice> GetAllInvoice()
         {
             return inv.GetInvoices(0,null);
-        }
-        public bool Update(int id)
-        {
-            
-            return (inv.Update(id));
-        }
+        }  
        
     }
 

@@ -6,21 +6,21 @@ namespace DAL.Test
 {
     public class TestDBsql
     {
-        // [Fact]
-        // public void Test_OpenConnection()
-        // {
-        //     Assert.NotNull(DBsql.OpenConnection());
-        // //Given
+        [Fact]
+        public void Test_OpenConnection()
+        {
+            Assert.NotNull(DBsql.OpenConnection());
+        //Given
         
-        // //When
+        //When
         
-        // //Then
-        // }
-        // [Theory]
-        // [InlineData("server=localhost1;user id=vtca;password=vtcacademy;port=3306;database=OrderDB;SslMode=None")]
-        // public void OpenConnectionWithStringFailTest(string connectionString)
-        // {
-        //     Assert.Null(DBsql.OpenConnection(connectionString));
-        // }
+        //Then
+        }
+        [Theory]
+        [InlineData("server=localhost1;user id=vtca;password=vtcacademy;port=3306;database=OrderDB;SslMode=None")]
+        public void OpenConnectionWithStringFailTest(string connectionString)
+        {
+            Assert.Null(DBsql.OpenConnection(connectionString));
+        }
     }
 }    
