@@ -24,9 +24,9 @@ namespace BL
             return inv.GetInvoices(1,new Invoice{staff = new Staff{StaffID = id }});
         }
         
-        public Invoice GetInvoiceDetails()
+        public Invoice GetInvoiceDetails(int id)
         {
-            return inv.GetInvoiceDetails();
+            return inv.GetInvoiceDetails(id);
         }
         
         public List<Invoice> GetAllInvoice()

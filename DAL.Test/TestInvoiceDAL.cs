@@ -47,7 +47,7 @@ namespace DAL.Test
         public void TestGetInvoiceDetails()
         {
            
-            Assert.NotNull(i.GetInvoiceDetails());
+            Assert.NotNull(i.GetInvoiceDetails(1));
         }
 
 

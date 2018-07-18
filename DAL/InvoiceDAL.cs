@@ -159,7 +159,7 @@ namespace DAL
         }
        
        
-        public Invoice GetInvoiceDetails()
+        public Invoice GetInvoiceDetails(int id)
         {
             if (conn.State == System.Data.ConnectionState.Closed)
             {
@@ -167,7 +167,7 @@ namespace DAL
             }
             Invoice invo = new Invoice();
             invo.ItemList = new List<Item>();
-            string query= "select staff.StaffID,staff.StaffName,Item.Size,Item.Promotion, invoice.InvoiceDate,invoice.InvoiceID,invoicedetails.Amount,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID ;";
+            string query= "select staff.StaffID,staff.StaffName,Item.Size,Item.Promotion, invoice.InvoiceDate,invoice.InvoiceID,invoicedetails.Amount,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID where InvoiceDetails.invoiceID =" + id + ";";
             MySqlCommand command = new MySqlCommand(query,conn);
             reader = command.ExecuteReader();
             while(reader.Read())
@@ -185,7 +185,6 @@ namespace DAL
                 u.amount = reader.GetInt32("Amount");
                 u.unitPrice = reader.GetDecimal("UnitPrice");
                 u.total = u.amount * u.unitPrice;
-                
                 invo.ItemList.Add(u);
            
             }

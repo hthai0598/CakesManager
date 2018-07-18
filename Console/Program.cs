@@ -309,16 +309,12 @@ namespace Console
             System.Console.WriteLine("                      HÓA ĐƠN THANH TOÁN");
             System.Console.WriteLine("Nhân Viên :" + staff.StaffID + "Ca Làm Việc : " + staff.calamviec);
             System.Console.WriteLine("Mã Sản Phẩm  ||Tên Sản Phẩm     || Số Lượng       ||  Khuyến Mãi    ||  Đơn Giá     ||Thành Tiền");
-            var invoicedetails = invoicebl.GetInvoiceDetails();
-            // System.Console.Write("{0}","Mã Hóa Đơn: "+invoicedetails.invoiceID );
-            // System.Console.WriteLine("{0}","Ngày: "+invoicedetails.invoiceDate );
+            var invoicedetails = invoicebl.GetInvoiceDetails(invoice.invoiceID);
             System.Console.WriteLine("Mã Hóa Đơn: " + invoice.invoiceID);
             System.Console.WriteLine("Ngày:  " + invoice.invoiceDate);
             a = 0;
             foreach (var item in invoicedetails.ItemList)
-            {
-                
-                
+            {   
                 System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}", item.itemID, item.itemName, item.amount, item.Promotion, item.unitPrice+ ".000 VNĐ" , item.total + ".000 VNĐ");
                 a = a + item.total;
             }

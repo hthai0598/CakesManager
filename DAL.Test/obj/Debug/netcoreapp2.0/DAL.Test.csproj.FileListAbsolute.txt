@@ -16,3 +16,4 @@ E:\Project\cakesManager\DAL.Test\obj\Debug\netcoreapp2.0\DAL.Test.AssemblyInfoIn
 E:\Project\cakesManager\DAL.Test\obj\Debug\netcoreapp2.0\DAL.Test.AssemblyInfo.cs
 E:\Project\cakesManager\DAL.Test\obj\Debug\netcoreapp2.0\DAL.Test.dll
 E:\Project\cakesManager\DAL.Test\obj\Debug\netcoreapp2.0\DAL.Test.pdb
+E:\Project\cakesManager\DAL.Test\obj\Debug\netcoreapp2.0\DAL.Test.csprojResolveAssemblyReference.cache

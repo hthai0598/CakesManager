@@ -82,9 +82,5 @@ create table InvoiceDetails
     constraint fk_InvoiceDetails_Item foreign key (ItemID) references Item(ItemID),
     constraint fk_InvoiceDetails_Invoice foreign key (InvoiceID) references Invoice(InvoiceID)
 );
-select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID group by invoice.InvoiceID ;
 
- 
- 
- 
- 
+
