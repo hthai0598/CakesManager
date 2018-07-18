@@ -16,6 +16,7 @@ namespace Persistence
         public decimal unitPrice { get; set; }
         public int amount { get; set; }
         public string Promotion { get; set; }
+        public decimal total {get;set;}
         
 
     }

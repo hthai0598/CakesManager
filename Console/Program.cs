@@ -214,8 +214,6 @@ namespace Console
                                     index = i;
                                     count++;
                                 }
-
-
                             }
                             if (count == 0)
                             {
@@ -311,7 +309,7 @@ namespace Console
             System.Console.WriteLine("                      HÓA ĐƠN THANH TOÁN");
             System.Console.WriteLine("Nhân Viên :" + staff.StaffID + "Ca Làm Việc : " + staff.calamviec);
             System.Console.WriteLine("Mã Sản Phẩm  ||Tên Sản Phẩm     || Số Lượng       ||  Khuyến Mãi    ||  Đơn Giá     ||Thành Tiền");
-            var invoicedetails = invoicebl.GetInvoiceDetails(amount);
+            var invoicedetails = invoicebl.GetInvoiceDetails();
             // System.Console.Write("{0}","Mã Hóa Đơn: "+invoicedetails.invoiceID );
             // System.Console.WriteLine("{0}","Ngày: "+invoicedetails.invoiceDate );
             System.Console.WriteLine("Mã Hóa Đơn: " + invoice.invoiceID);
@@ -319,10 +317,10 @@ namespace Console
             a = 0;
             foreach (var item in invoicedetails.ItemList)
             {
-                decimal total =0; 
-                total = item.unitPrice * amount;
-                System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}", item.itemID, item.itemName, item.amount, item.Promotion, item.unitPrice+ ".000 VNĐ" , total + ".000 VNĐ");
                 
+                
+                System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}", item.itemID, item.itemName, item.amount, item.Promotion, item.unitPrice+ ".000 VNĐ" , item.total + ".000 VNĐ");
+                a = a + item.total;
             }
             System.Console.WriteLine(row2);
             System.Console.WriteLine("Thanh Toán: " + a + ".000 VNĐ");
