@@ -6,16 +6,16 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "BL.Test/1.0.0": {
+      "DAL.Test/1.0.0": {
         "dependencies": {
-          "BL": "1.0.0",
+          "DAL": "1.0.0",
           "Microsoft.NET.Test.Sdk": "15.5.0",
           "Persistence": "1.0.0",
           "xunit": "2.3.1",
           "xunit.runner.visualstudio": "2.3.1"
         },
         "runtime": {
-          "BL.Test.dll": {}
+          "DAL.Test.dll": {}
         }
       },
       "Google.Protobuf/3.5.1": {
@@ -1129,15 +1129,6 @@
           "Microsoft.NET.Test.Sdk": "15.5.0"
         }
       },
-      "BL/1.0.0": {
-        "dependencies": {
-          "DAL": "1.0.0",
-          "Persistence": "1.0.0"
-        },
-        "runtime": {
-          "BL.dll": {}
-        }
-      },
       "DAL/1.0.0": {
         "dependencies": {
           "MySql.Data": "8.0.11",
@@ -1155,7 +1146,7 @@
     }
   },
   "libraries": {
-    "BL.Test/1.0.0": {
+    "DAL.Test/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1754,11 +1745,6 @@
       "sha512": "sha512-B+RtW4dyBquEyjSAFyV5RMifaOZOirDwlzcIq2DNVGo1gzJS8PAPu5S+2y1n6ZgEMWbpqJf9TkZ55+X6FLdy3A==",
       "path": "xunit.runner.visualstudio/2.3.1",
       "hashPath": "xunit.runner.visualstudio.2.3.1.nupkg.sha512"
-    },
-    "BL/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "DAL/1.0.0": {
       "type": "project",

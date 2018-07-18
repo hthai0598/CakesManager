@@ -37,8 +37,7 @@ namespace DAL
             try
             {
                 // them bang invoice
-                command.CommandText = "insert into Invoice(StaffID) value ('"+ invoice.staff.StaffID+ "');";
-               
+                command.CommandText = "insert into Invoice(StaffID) value ('"+ invoice.staff.StaffID+ "');";       
                 command.ExecuteNonQuery();
                 command.CommandText = "select LAST_INSERT_ID() as InvoiceID;";
                 reader = command.ExecuteReader();
@@ -47,7 +46,6 @@ namespace DAL
                     invoice.invoiceID = reader.GetInt32("InvoiceID");
                 }
                 reader.Close();
-
                 // // them bang invoicedetails
                 foreach (var s in invoice.ItemList)
                 {
@@ -102,12 +100,25 @@ namespace DAL
         
         private Invoice GetInvoice(MySqlDataReader reader)
         {
-            Invoice inn = new Invoice();
-            inn.invoiceID = reader.GetInt32("InvoiceID");
-            inn.staff = new Staff();
-            inn.staff.StaffID = reader.GetString("StaffID");
-            inn.invoiceDate = reader.GetDateTime("InvoiceDate");
-            return inn;
+            Invoice i = new Invoice();
+            // inn.invoiceID = reader.GetInt32("InvoiceID");
+            // inn.staff = new Staff();
+            // inn.staff.StaffID = reader.GetString("StaffID");
+            // inn.invoiceDate = reader.GetDateTime("InvoiceDate");
+                    i.invoiceID = reader.GetInt32("InvoiceID");
+                    i.invoiceDate = reader.GetDateTime("InvoiceDate");
+                    i.staff = new Staff();
+                    i.staff.StaffID = reader.GetString("StaffID");
+                    Item item = new Item();
+                    item.itemID = reader.GetString("ItemID");
+                    // item.itemName = reader.GetString("ItemName");
+                    // item.itemType = reader.GetString("ItemType");
+                    item.amount = reader.GetInt32("Amount");
+                    // item.size = reader.GetString("Size");
+                    item.unitPrice = reader.GetDecimal("UnitPrice");
+
+                    // item.Promotion = reader.GetString("Promotion");
+            return i;
         }
         public List<Invoice> GetInvoices(MySqlCommand command)
         {
@@ -115,7 +126,6 @@ namespace DAL
             reader = command.ExecuteReader();
             while (reader.Read())
             {
-
                 list.Add(GetInvoice(reader));
             }
             reader.Close();
@@ -133,10 +143,10 @@ namespace DAL
             switch (Filter)
             {
                 case 0:
-                    query = @"select * from Invoice;";
+                    query = "select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails . InvoiceID ;";
                     break;
                 case 1:
-                    query = @"select *from Invoice where StaffID = @staffid;";
+                    query = @"select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID where StaffID = @staffid";
 
                     cmd.Parameters.AddWithValue("@staffid", i.staff.StaffID);
                     break;
@@ -147,45 +157,43 @@ namespace DAL
             return GetInvoices(cmd);
         }
        
-        public Invoice GetInvoiceDetailsByID(int id)
-        {
-            //DBsql.OpenConnection();
-            if (conn.State == System.Data.ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            string query = "select staff.StaffID,staff.StaffName, invoice.InvoiceID,invoicedetails.Amount,invoicedetails.UnitPrice,item.ItemName,item.ItemID,item.UnitPrice,item.Amount,item.Size,item.Promotion,item.ItemType from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID where invoice.InvoiceID =" + id;
-            Invoice i = new Invoice();
+        // public Invoice GetInvoiceDetailsByID(string id)
+        // {
+        //     //DBsql.OpenConnection();
+        //     if (conn.State == System.Data.ConnectionState.Closed)
+        //     {
+        //         conn.Open();
+        //     }
+        //     string query = "select staff.StaffID,staff.StaffName,Item.Size,Item.Promotion, invoice.InvoiceDate,invoice.InvoiceID,invoicedetails.Amount,invoicedetails.UnitPrice,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID where staff.StaffID = " + id + ";";
+        //     Invoice i = new Invoice();
             
-            MySqlCommand command = new MySqlCommand(query, conn);
-            using (reader = command.ExecuteReader())
-            {     
-                i.ItemList = new List<Item>();
-                while (reader.Read())
-                {
-                    
-                    i.invoiceID = reader.GetInt32("InvoiceID");
-                    i.invoiceDate = reader.GetDateTime("InvoiceDate");
-                    i.staff = new Staff();
-                    i.staff.StaffID = reader.GetString("StaffID");
-                    i.staff.StaffName = reader.GetString("StaffName");
-
-                    Item item = new Item();
-                    item.itemID = reader.GetString("ItemID");
-                    item.itemName = reader.GetString("ItemName");
-                    item.itemType = reader.GetString("ItemType");
-                    item.amount = reader.GetInt32("Amount");
-                    item.size = reader.GetString("Size");
-                    item.unitPrice = reader.GetDecimal("UnitPrice");
-                    item.Promotion = reader.GetString("Promotion");
-                    i.ItemList.Add(item);
-                } 
-                reader.Close();
-            }
-            conn.Close();
-            return i;
-        }
-        public Invoice GetInvoiceDetails()
+        //     MySqlCommand command = new MySqlCommand(query, conn);
+        //     using (reader = command.ExecuteReader())
+        //     {     
+        //         i.ItemList = new List<Item>();
+        //         while (reader.Read())
+        //         {
+        //             i.invoiceID = reader.GetInt32("InvoiceID");
+        //             i.invoiceDate = reader.GetDateTime("InvoiceDate");
+        //             i.staff = new Staff();
+        //             i.staff.StaffID = reader.GetString("StaffID");
+        //             i.staff.StaffName = reader.GetString("StaffName");
+        //             Item item = new Item();
+        //             item.itemID = reader.GetString("ItemID");
+        //             item.itemName = reader.GetString("ItemName");
+        //             item.itemType = reader.GetString("ItemType");
+        //             item.amount = reader.GetInt32("Amount");
+        //             item.size = reader.GetString("Size");
+        //             item.unitPrice = reader.GetDecimal("UnitPrice");
+        //             item.Promotion = reader.GetString("Promotion");
+        //             i.ItemList.Add(item);
+        //         } 
+        //         reader.Close();
+        //     }
+        //     conn.Close();
+        //     return i;
+        // }
+        public Invoice GetInvoiceDetails(int i)
         {
             if (conn.State == System.Data.ConnectionState.Closed)
             {
@@ -193,16 +201,18 @@ namespace DAL
             }
             Invoice invo = new Invoice();
             invo.ItemList = new List<Item>();
-            string query="select staff.StaffID,staff.StaffName,Item.Size,Item.Promotion, invoice.InvoiceDate,invoice.InvoiceID,invoicedetails.Amount,invoicedetails.UnitPrice,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID order by invoice.InvoiceID asc;";
+            string query= "select staff.StaffID,staff.StaffName,Item.Size,Item.Promotion, invoice.InvoiceDate,invoice.InvoiceID,invoicedetails.Amount,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID order by invoice.InvoiceID desc limit " + i + ";"; 
             MySqlCommand command = new MySqlCommand(query,conn);
             reader = command.ExecuteReader();
-            if (reader.Read())
+            while(reader.Read())
             {
                 invo.invoiceID = reader.GetInt32("InvoiceID");
                 invo.invoiceDate = reader.GetDateTime("InvoiceDate");
                 invo.staff = new Staff();
                 invo.staff.StaffID = reader.GetString("StaffID");
                 invo.staff.StaffName = reader.GetString("StaffName");
+            //    while (reader.Read())
+            //    {
                 Item u = new Item();
                 u.itemID = reader.GetString("ItemID");
                 u.itemName = reader.GetString("ItemName");
@@ -211,6 +221,8 @@ namespace DAL
                 u.amount = reader.GetInt32("Amount");
                 u.unitPrice = reader.GetDecimal("UnitPrice");
                 invo.ItemList.Add(u);
+            //    }
+            //    reader.Close();
             }
             reader.Close();
             conn.Close();

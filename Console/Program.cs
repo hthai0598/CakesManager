@@ -125,7 +125,7 @@ namespace Console
             staffbl = new StaffBL();
             staff = staffbl.Login(u, pass);
             System.Console.Clear();
-            string[] staff1 = { "Xem Danh Sách Sản Phẩm", "Đăng Xuất" };
+            string[] staff1 = { "Xem Danh Sách Sản Phẩm","Menu Thống Kê", "Đăng Xuất" };
 
             // , "Tạo Hóa Đơn", "Xem Thống Kê"
             int chon = Menu("Chào Mừng Nhân Viên " + staff.StaffName + "Ca Làm việc : " + staff.calamviec, staff1);
@@ -135,21 +135,21 @@ namespace Console
                 //     System.Console.WriteLine("Danh Sách Sản Phẩm ");
                 //     List_Item();
                 //     break;
-                // case 2:
-                //     // MenuThongKe();
-                //     break;
                 // case 3:
 
                 //     break;
                 case 1:
-                System.Console.WriteLine("Xem Danh Sách Sản Phẩm");
+                    System.Console.WriteLine("Xem Danh Sách Sản Phẩm");
                     List_Item();
                     break;
-                
+                case 2:
+                System.Console.WriteLine("Menu Thống Kê");
+                    MenuThongKe();
+                    break;
+
                 case 3:
                     System.Console.WriteLine("Đăng Xuất ");
                     MenuChoice();
-
                     break;
             }
 
@@ -172,17 +172,19 @@ namespace Console
             char ch = Convert.ToChar(System.Console.ReadLine());
             switch (ch)
             {
-                case 'y': CreateOrders();
-                break;
-                case 'n': MenuStaff();
-                break;
+                case 'y':
+                    CreateOrders();
+                    break;
+                case 'n':
+                    MenuStaff();
+                    break;
             }
         }
-        
-        public static  bool CreateOrders()
+
+        public static bool CreateOrders()
         {
             System.Console.Clear();
-            invoicebl=new InvoiceBL();
+            invoicebl = new InvoiceBL();
             invoice = new Invoice();
             itembl = new ItemBL();
             item = new Item();
@@ -190,35 +192,37 @@ namespace Console
             int count1 = 0;
             invoice.staff = new Staff();
             invoice.staff.StaffID = u;
-            List<Item> result= itembl.GetAllItem();
+            List<Item> result = itembl.GetAllItem();
             int index = 0;
-            if( result != null)
+            if (result != null)
             {
-                while(true)
+                while (true)
                 {
-                    while(true)
-                    { 
+                    while (true)
+                    {
                         int count = 0;
                         System.Console.WriteLine("Nhập Mã Sản Phẩm: ");
-                        try{
-                            
+                        try
+                        {
+
                             string item_id = System.Console.ReadLine();
                             for (int i = 0; i < result.Count; i++)
                             {
-                                if(item_id == result[i].itemID)
+                                if (item_id == result[i].itemID)
                                 {
                                     invoice.ItemList.Add(itembl.GetItemById(item_id));
                                     index = i;
                                     count++;
                                 }
-                            
-                                
+
+
                             }
-                            if (count ==0)
-                            {   
+                            if (count == 0)
+                            {
                                 throw new System.Exception("Không tìm thấy ID");
                             }
-                        }catch(System.Exception e)
+                        }
+                        catch (System.Exception e)
                         {
                             System.Console.WriteLine(e.Message);
                             continue;
@@ -228,59 +232,59 @@ namespace Console
                         // }
                         break;
                     }
-                    
-                        while (true)
+
+                    while (true)
+                    {
+                        try
                         {
-                            try
+                            System.Console.Write("Nhập Vào Số Lượng: ");
+                            amount = Convert.ToInt32(System.Console.ReadLine());
+                            if ((amount > result[index].amount && result[index].amount == 0) || (amount == result[index].amount && result[index].amount == 0))
                             {
-                                    System.Console.Write("Nhập Vào Số Lượng: ");
-                                     amount = Convert.ToInt32(System.Console.ReadLine());
-                                    if((amount >result[index].amount && result[index].amount == 0) || (amount == result[index].amount && result[index].amount == 0) )
-                                    {
-                                        System.Console.WriteLine("Số Lượng Sản Phẩm Không Còn!");
-                                        System.Console.ReadKey();
-                                        List_Item();
-                                        
-                                        }
-                                    if( amount > result[index].amount && result[index].amount >0 )
-                                    {
-                                        System.Console.WriteLine("Số Lượng Còn : {0}",result[index].amount);
-                                        throw (new System.Exception("Mời Khách Hàng Giảm Số Lượng Hoặc Chọn Sản Phẩm Khác !"));
-                                    }
-                                    else if( 0 < amount || amount <= result[index].amount)
-                                    {
-                                        invoice.ItemList[count1].amount = amount;
-                                        count1++;
-                                        break;
-                                    }
+                                System.Console.WriteLine("Số Lượng Sản Phẩm Không Còn!");
+                                System.Console.ReadKey();
+                                List_Item();
+
                             }
-                            catch(System.Exception e)
+                            if (amount > result[index].amount && result[index].amount > 0)
                             {
-                                System.Console.Write(e.Message);
-                                continue;
+                                System.Console.WriteLine("Số Lượng Còn : {0}", result[index].amount);
+                                throw (new System.Exception("Mời Khách Hàng Giảm Số Lượng Hoặc Chọn Sản Phẩm Khác !"));
                             }
-                            // catch
-                            // {
-                            //     System.Console.Write("Hãy Nhập :");
-                            //     continue;
-                            // }
-                            break;
+                            else if (0 < amount || amount <= result[index].amount)
+                            {
+                                invoice.ItemList[count1].amount = amount;
+                                count1++;
+                                break;
+                            }
                         }
-                        System.Console.Write("Bạn Muốn Mua Thêm  ?(y/n) ");
-                        char choice = Convert.ToChar(System.Console.ReadLine());
-                        if(choice == 'n')
+                        catch (System.Exception e)
                         {
-                            break;
+                            System.Console.Write(e.Message);
+                            continue;
                         }
-                
+                        // catch
+                        // {
+                        //     System.Console.Write("Hãy Nhập :");
+                        //     continue;
+                        // }
+                        break;
                     }
+                    System.Console.Write("Bạn Muốn Mua Thêm  ?(y/n) ");
+                    char choice = Convert.ToChar(System.Console.ReadLine());
+                    if (choice == 'n')
+                    {
+                        break;
+                    }
+
+                }
                 System.Console.WriteLine("Tạo Hóa Đơn " + (invoicebl.Create_Invoice(invoice) ? "Thành Công!" : "Không Thành Công!"));
                 System.Console.WriteLine("Nhập Bất Kì Để Xuất Hóa Đơn Chó Khách Hàng ");
                 GetInvoiceDetails();
                 System.Console.ReadLine();
-                
+
             }
-            else if( result == null)
+            else if (result == null)
             {
                 System.Console.Write("Sản Phẩm Không Tồn Tại!");
                 System.Console.ReadLine();
@@ -288,33 +292,91 @@ namespace Console
                 return false;
             }
             return true;
-            
+
         }
-        
+
+        static decimal a = 0;
         public static void GetInvoiceDetails()
         {
-            string row1 = "==================================================================================================================";
-            string row2 = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
+            string row1 = "=====================================================================";
+            string row2 = "---------------------------------------------------------------------";
             System.Console.WriteLine(row1);
             System.Console.WriteLine(row2);
-             staffbl = new StaffBL();
+            staffbl = new StaffBL();
             staff = staffbl.Login(u, pass);
-            System.Console.WriteLine("CỬA HÀNG BÁNH NGỌT ABC");
-            System.Console.WriteLine("12 Phố Huế ---- Hai Bà Trưng ---- Hà Nội");
-            System.Console.WriteLine("Hóa Đơn Thanh Toán");
-            System.Console.WriteLine("Nhân Viên :"+ staff.StaffID + "Ca Làm Việc : "+staff.calamviec);
-            System.Console.WriteLine("Mã Sản Phẩm  ||Tên Sản Phẩm     || Size      ||  Khuyến Mãi    || Số Lượng     ||Total");
-            var invoicedetails = invoicebl.GetInvoiceDetails();
+            System.Console.WriteLine("");
+
+            System.Console.WriteLine("                      CỬA HÀNG BÁNH NGỌT ABC");
+            System.Console.WriteLine("                                   12 Phố Huế ---- Hai Bà Trưng ---- Hà Nội");
+            System.Console.WriteLine("                      HÓA ĐƠN THANH TOÁN");
+            System.Console.WriteLine("Nhân Viên :" + staff.StaffID + "Ca Làm Việc : " + staff.calamviec);
+            System.Console.WriteLine("Mã Sản Phẩm  ||Tên Sản Phẩm     || Số Lượng       ||  Khuyến Mãi    ||  Đơn Giá     ||Thành Tiền");
+            var invoicedetails = invoicebl.GetInvoiceDetails(amount);
             // System.Console.Write("{0}","Mã Hóa Đơn: "+invoicedetails.invoiceID );
             // System.Console.WriteLine("{0}","Ngày: "+invoicedetails.invoiceDate );
-
+            System.Console.WriteLine("Mã Hóa Đơn: " + invoice.invoiceID);
+            System.Console.WriteLine("Ngày:  " + invoice.invoiceDate);
+            a = 0;
             foreach (var item in invoicedetails.ItemList)
             {
-                decimal total = item.unitPrice * amount;
-                System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}",item.itemID,item.itemName,item.size,item.Promotion,item.amount,total);
+                decimal total =0; 
+                total = item.unitPrice * amount;
+                System.Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}", item.itemID, item.itemName, item.amount, item.Promotion, item.unitPrice+ ".000 VNĐ" , total + ".000 VNĐ");
+                
             }
+            System.Console.WriteLine(row2);
+            System.Console.WriteLine("Thanh Toán: " + a + ".000 VNĐ");
+            System.Console.WriteLine();
+            System.Console.WriteLine("                      Cảm Ơn Và Hẹn Gặp Lại!!!!");
+            System.Console.WriteLine("Nhấn Để Về MENU Nhân Viên");
+            System.Console.ReadLine();
+            MenuStaff();
 
 
+
+        }
+        public static void MenuThongKe()
+        {
+            System.Console.Clear();
+            string row1 = "=====================================================================";
+            string row2 = "---------------------------------------------------------------------";
+            System.Console.WriteLine(row1);
+            System.Console.WriteLine(row2);
+            System.Console.WriteLine("Thống Kê Hóa Đơn Theo Mã Nhân Viên");
+            ThongKeStaff();
+        }
+        public static void ThongKeStaff()
+        {   
+            decimal doanhthu = 0;
+            invoicebl = new InvoiceBL();
+            var tk = invoicebl.GetInvoiceByID(u);
+            if (tk.Count !=0)
+            {
+                string line = "============================================================================================";
+                System.Console.WriteLine(line);
+                System.Console.WriteLine(line);
+                System.Console.WriteLine("Mã Nhân Viên : " + u);
+                foreach (var item in tk)
+                {
+                    System.Console.WriteLine("Mã Hóa Đơn :  " + invoice.invoiceID);
+                    System.Console.WriteLine("Ngày Tạo  : " + item.invoiceDate);
+                    System.Console.WriteLine("Tổng: " + a +".000 VNĐ");
+                    doanhthu = doanhthu + a;
+                    System.Console.WriteLine(line);
+                }
+                System.Console.WriteLine("Doanh Thu Cua Cửa Hàng Ca:  " + staff.calamviec);
+                System.Console.WriteLine(doanhthu + ".000 VNĐ");
+                System.Console.WriteLine("Nhấn Bất Kì Để Về Menu Nhân Viên");
+                System.Console.ReadLine();
+                MenuStaff();
+            }
+            else
+            {
+                System.Console.WriteLine("Chưa Có Hóa Đơn Cho Nhân Viên Này");
+                System.Console.WriteLine("Nhấn Phím Bất Kì Để Về Menu Nhân Viên");
+                System.Console.ReadLine();
+                MenuStaff();
+            }
         }
 
 

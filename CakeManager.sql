@@ -1,6 +1,6 @@
+drop database cakemanager;
 create database CakeManager;
 use CakeManager;
-drop database cakemanager;
 create table Item
 (
 	ItemID char(40) primary key,
@@ -68,12 +68,9 @@ create table Invoice
 (
 	InvoiceID int not null primary key auto_increment,
     StaffID char(40),
-    InvoiceStatus int,
     InvoiceDate datetime default now(),
     constraint fk_Invoice_Staff foreign key (StaffID) references Staff(StaffID)
 );
-
-
 
 
 create table InvoiceDetails
@@ -85,13 +82,9 @@ create table InvoiceDetails
     constraint fk_InvoiceDetails_Item foreign key (ItemID) references Item(ItemID),
     constraint fk_InvoiceDetails_Invoice foreign key (InvoiceID) references Invoice(InvoiceID)
 );
-alter table  invoicedetails add primary key (ItemID,InvoiceID);
+select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID group by invoice.InvoiceID ;
 
-
-
-select * from invoicedetails;
-insert into invoicedetails(ItemID,InvoiceID,Amount,InvoiceStatus,UnitPrice) value ('GT1',16,4,2,20);
-select staff.StaffID,staff.StaffName, invoice.InvoiceID,invoicedetails.Amount,invoicedetails.UnitPrice,item.ItemName,item.ItemID,item.UnitPrice from staff inner join invoice on staff.StaffID = invoice.StaffID inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID inner join item on item.ItemID = invoicedetails.ItemID order by invoice.InvoiceID asc;
-
-select * from staff;
-select * from invoice;
+ 
+ 
+ 
+ 

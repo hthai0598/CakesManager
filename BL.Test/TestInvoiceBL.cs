@@ -18,7 +18,13 @@ namespace BL.Test
         [Fact]
         public void TestGetInvoiceDeTails()
         {
-           Assert.NotNull(inn.GetInvoiceDetails());
+            int id = 2;
+           Assert.NotNull(inn.GetInvoiceDetails(id));
+        }
+        [Fact]
+        public void TestGetInvoiceDeTailsbyid()
+        {
+            Assert.NotNull(inn.GetInvoiceByID("S111"));   
         }
     
        

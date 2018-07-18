@@ -15,17 +15,18 @@ namespace BL
             return inv.Create_Invoice(invoice);
             
         }
-        public Invoice GetInvoiceDetailsByID(int id)
-        {
-            return inv.GetInvoiceDetailsByID(id);
-        }
+        // public Invoice GetInvoiceDetailsByID(string id)
+        // {
+        //     return inv.GetInvoiceDetailsByID(id);
+        // }
         public List<Invoice> GetInvoiceByID(string id)
         {
             return inv.GetInvoices(1,new Invoice{staff = new Staff{StaffID = id }});
         }
-        public Invoice GetInvoiceDetails()
+        
+        public Invoice GetInvoiceDetails(int id)
         {
-            return inv.GetInvoiceDetails();
+            return inv.GetInvoiceDetails(id);
         }
         
         public List<Invoice> GetAllInvoice()
