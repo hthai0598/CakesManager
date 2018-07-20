@@ -101,24 +101,17 @@ namespace DAL
         private Invoice GetInvoice(MySqlDataReader reader)
         {
             Invoice i = new Invoice();
-            // inn.invoiceID = reader.GetInt32("InvoiceID");
-            // inn.staff = new Staff();
-            // inn.staff.StaffID = reader.GetString("StaffID");
-            // inn.invoiceDate = reader.GetDateTime("InvoiceDate");
-                    i.invoiceID = reader.GetInt32("InvoiceID");
-                    i.invoiceDate = reader.GetDateTime("InvoiceDate");
-                    i.staff = new Staff();
-                    i.staff.StaffID = reader.GetString("StaffID");
-                    Item item = new Item();
-                    item.itemID = reader.GetString("ItemID");
-                    // item.itemName = reader.GetString("ItemName");
-                    // item.itemType = reader.GetString("ItemType");
-                    item.amount = reader.GetInt32("Amount");
-                    // item.size = reader.GetString("Size");
-                    item.unitPrice = reader.GetDecimal("UnitPrice");
-                    item.total = item.amount * item.unitPrice;
-
-                    // item.Promotion = reader.GetString("Promotion");
+            i.ItemList = new List<Item>();
+            i.invoiceID = reader.GetInt32("InvoiceID");
+            i.invoiceDate = reader.GetDateTime("InvoiceDate");
+            i.staff = new Staff();
+            i.staff.StaffID = reader.GetString("StaffID");
+            Item item = new Item();
+            // item.itemID = reader.GetString("ItemID");
+            item.amount = reader.GetInt32("Amount");
+            item.unitPrice = reader.GetDecimal("UnitPrice");
+            item.total = item.amount * item.unitPrice;
+            i.ItemList.Add(item);
             return i;
         }
         public List<Invoice> GetInvoices(MySqlCommand command)
@@ -147,7 +140,7 @@ namespace DAL
                     query = "select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails . InvoiceID ;";
                     break;
                 case 1:
-                    query = @"select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID where StaffID = @staffid";
+                    query = @"select invoice.InvoiceID,invoice.InvoiceDate,invoicedetails.Amount,invoicedetails.UnitPrice,Invoice.StaffID from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID where StaffID = @staffid group by invoicedetails.InvoiceID;";
 
                     cmd.Parameters.AddWithValue("@staffid", i.staff.StaffID);
                     break;
@@ -192,30 +185,6 @@ namespace DAL
             conn.Close();
             return invo;
         }
-        // public List<Item> GetDetails()
-        // {
-        //     List<Item> list = new List<Item>();
-        //     using (conn = DBsql.OpenConnection())
-        //     {
-        //         MySqlCommand command = new MySqlCommand(query,conn);
-        //         using (reader = command.ExecuteReader())
-        //         {
-        //             while (reader.Read())
-        //             {
-        //                 Invoice invoice = new Invoice();
-        //                 invoice = GetInvoice(reader);
-        //                 list.Add(invoice);
-
-        //             }
-
-        //         }
-                
-        //     }
-        //     return list;
-        // }
-
-
-
     }
 
 

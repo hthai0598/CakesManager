@@ -73,6 +73,7 @@ create table Invoice
 );
 
 
+
 create table InvoiceDetails
 (
 	ItemID char(40),
@@ -82,5 +83,6 @@ create table InvoiceDetails
     constraint fk_InvoiceDetails_Item foreign key (ItemID) references Item(ItemID),
     constraint fk_InvoiceDetails_Invoice foreign key (InvoiceID) references Invoice(InvoiceID)
 );
-
+select invoice.InvoiceID,invoice.InvoiceDate,invoicedetails.Amount,invoicedetails.UnitPrice from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID group by invoicedetails.InvoiceID;
+select * from invoicedetails;
 
