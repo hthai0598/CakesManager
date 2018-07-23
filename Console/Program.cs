@@ -282,10 +282,23 @@ namespace Console
                     }
 
                 }
-                System.Console.WriteLine("Tạo Hóa Đơn " + (invoicebl.Create_Invoice(invoice) ? "Thành Công!" : "Không Thành Công!"));
-                System.Console.WriteLine("Nhập Bất Kì Để Xuất Hóa Đơn Chó Khách Hàng ");
+                System.Console.WriteLine("Bạn Có Muốn Tạo Hóa Đơn Này Không ? Y/N");
+                char ch = Convert.ToChar(System.Console.ReadLine());
+                switch (ch)
+                {
+                    
+                    case 'n': System.Console.WriteLine("Hóa Đơn Đã Bị Hủy - Đang Trở Lại Menu Nhân Viên ");
+                    System.Console.ReadLine();
+                    MenuStaff();
+                    break;
+                    case 'y':
+                     System.Console.WriteLine("Tạo Hóa Đơn " + (invoicebl.Create_Invoice(invoice) ? "Thành Công!" : "Không Thành Công!"));
+                     System.Console.WriteLine("Nhập Bất Kì Để Xuất Hóa Đơn Chó Khách Hàng ");
+                    break;
+                }
                 GetInvoiceDetails();
                 System.Console.ReadLine();
+    
 
             }
             else if (result == null)
@@ -302,7 +315,8 @@ namespace Console
         static decimal a;
         public static void GetInvoiceDetails()
         {
-
+            decimal khach;
+            decimal tralai;
             System.Console.Clear();
             string row1 = "=====================================================================";
             string row2 = "---------------------------------------------------------------------";
@@ -328,6 +342,21 @@ namespace Console
             }
             System.Console.WriteLine(row2);
             System.Console.WriteLine("Thanh Toán: " + a + ".000 VNĐ");
+            System.Console.Write("Tiền Nhận: ");
+            do
+            {
+            khach = Convert.ToInt32(System.Console.ReadLine());
+            tralai = khach - a;
+
+            if (khach < a)
+            {
+                System.Console.WriteLine("Số tiền Không Đủ Để Thanh Toán - Hãy Nhập Lại");
+            }
+            else 
+            {
+                System.Console.WriteLine("Tiền Dư : " + tralai + ".000 VNĐ");
+            }
+            } while (khach < a);
             System.Console.WriteLine();
             System.Console.WriteLine("                      Cảm Ơn Và Hẹn Gặp Lại!!!!");
             System.Console.WriteLine("Nhấn Để Về MENU Nhân Viên");

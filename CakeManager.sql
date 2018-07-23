@@ -85,4 +85,9 @@ create table InvoiceDetails
 );
 select invoice.InvoiceID,invoice.InvoiceDate,invoicedetails.Amount,invoicedetails.UnitPrice from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID group by invoicedetails.InvoiceID;
 select * from invoicedetails;
+select invoice.InvoiceID,invoice.InvoiceDate,invoicedetails.Amount,invoicedetails.UnitPrice  
+from invoice 
+inner join invoicedetails 
+on invoice.InvoiceID = invoicedetails.InvoiceID 
+group by invoicedetails.InvoiceID;
 
