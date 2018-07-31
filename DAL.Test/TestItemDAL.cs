@@ -14,7 +14,7 @@ namespace DAL.Test
             Assert.NotNull(item.GetItemById("GT1"));
         }
         [Fact]
-        public void TestFail()
+        public void TestGetFailItem()
         {
             Assert.Null(item.GetItemById("123"));
         }

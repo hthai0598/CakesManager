@@ -37,9 +37,6 @@ namespace DAL.Test
             invo.ItemList = new List<Item>();
             invo.ItemList.Add(idl.GetItemById("BM1"));
             invo.ItemList[0].amount = 2;
-            invo.ItemList.Add(idl.GetItemById("BM2"));
-            invo.ItemList[1].amount = 2;
-
             Assert.True(i.Create_Invoice(invo));
         }
        

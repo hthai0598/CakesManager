@@ -11,28 +11,23 @@ namespace BL.Test
         InvoiceBL inn = new InvoiceBL();
     
         [Fact]
-        public void TestGetAll()
-        {
-            Assert.NotNull(inn.GetAllInvoice());
-        }
-        [Fact]
         public void TestGetInvoiceDeTails()
         {
             int id = 2;
            Assert.NotNull(inn.GetInvoiceDetails(id));
         }
         [Fact]
-        public void TestGetInvoiceDeTailsbyid()
+        public void TestGetInvoiceByStaff()
         {
             Assert.NotNull(inn.GetInvoiceByID("S111"));   
         }
     
        
         
-        // [Fact]
-        // public void Create()
-        // {
-        //     Assert.True(inn.Create_Invoice(new Invoice()));
-        // }
+        [Fact]
+        public void CreateFail()
+        {
+            Assert.False(inn.Create_Invoice(new Invoice()));
+        }
     }
 }    

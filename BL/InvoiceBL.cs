@@ -15,10 +15,6 @@ namespace BL
             return inv.Create_Invoice(invoice);
             
         }
-        // public Invoice GetInvoiceDetailsByID(string id)
-        // {
-        //     return inv.GetInvoiceDetailsByID(id);
-        // }
         public List<Invoice> GetInvoiceByID(string id)
         {
             return inv.GetInvoices(1,new Invoice{staff = new Staff{StaffID = id }});
@@ -28,11 +24,7 @@ namespace BL
         {
             return inv.GetInvoiceDetails(id);
         }
-        
-        public List<Invoice> GetAllInvoice()
-        {
-            return inv.GetInvoices(0,null);
-        }  
+          
        
     }
 

@@ -18,7 +18,7 @@ namespace DAL.Test
         }
         [Theory]
         [InlineData("server=localhost1;user id=vtca;password=vtcacademy;port=3306;database=OrderDB;SslMode=None")]
-        public void OpenConnectionWithStringFailTest(string connectionString)
+        public void OpenConnectionFail(string connectionString)
         {
             Assert.Null(DBsql.OpenConnection(connectionString));
         }

@@ -21,7 +21,7 @@ namespace BL.Test
         [Fact]
         public void TestGetAll()
         {   
-            List<Item> i = new List<Item>();
+            List<Item> i = itembl.GetAllItem();
             Assert.NotNull(i);
         }
     }

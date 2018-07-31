@@ -136,9 +136,6 @@ namespace DAL
             MySqlCommand cmd = new MySqlCommand(" ", conn);
             switch (Filter)
             {
-                case 0:
-                    query = "select * from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails . InvoiceID ;";
-                    break;
                 case 1:
                     query = @"select invoice.InvoiceID,invoice.InvoiceDate,invoicedetails.Amount,invoicedetails.UnitPrice,Invoice.StaffID from invoice inner join invoicedetails on invoice.InvoiceID = invoicedetails.InvoiceID where StaffID = @staffid group by invoicedetails.InvoiceID;";
 
